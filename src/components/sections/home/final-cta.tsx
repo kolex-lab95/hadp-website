@@ -1,8 +1,9 @@
 import {Mail, MessageCircle} from 'lucide-react';
 import {getTranslations} from 'next-intl/server';
-import {ButtonLink} from '@/components/ui/button';
+import {buttonStyles} from '@/components/ui/button';
 import {Container} from '@/components/ui/container';
 import {site} from '@/config/site';
+import {Link} from '@/i18n/navigation';
 
 export async function FinalCTA() {
   const t = await getTranslations();
@@ -26,7 +27,7 @@ export async function FinalCTA() {
             <span>WhatsApp</span>
           </a>
         </div>
-        <ButtonLink href="#actions" variant="secondary" className="contact-actions-link">{t('contactDetails')}</ButtonLink>
+        <Link href="/actions" className={buttonStyles({variant: 'secondary', className: 'contact-actions-link'})}>{t('contactDetails')}</Link>
       </div>
     </Container>
   </section>;

@@ -1,9 +1,10 @@
 import Image from 'next/image';
 import {getLocale, getTranslations} from 'next-intl/server';
 import {Container} from '@/components/ui/container';
-import {homeNavigation} from '@/config/navigation';
+import {siteNavigation} from '@/config/navigation';
 import {phoneHref, site} from '@/config/site';
 import {interventions} from '@/content/home';
+import {Link} from '@/i18n/navigation';
 import {LanguageSwitcher} from './language-switcher';
 import {SocialLinks} from './social-links';
 
@@ -11,7 +12,7 @@ export async function Footer() {
   const t = await getTranslations();
   const locale = await getLocale();
 
-  return <footer id="contact" className="site-footer">
+  return <footer className="site-footer">
     <Container>
       <div className="footer-grid">
         <div>
@@ -27,8 +28,8 @@ export async function Footer() {
         <div>
           <h2 className="footer-heading">{t('footerNavigation')}</h2>
           <ul className="footer-navigation-list">
-            {homeNavigation.map((item) => <li key={item.id}>
-              <a href={`#${item.id}`} className="footer-link block w-fit">{t(item.labelKey)}</a>
+            {siteNavigation.map((item) => <li key={item.href}>
+              <Link href={item.href} className="footer-link block w-fit">{t(item.labelKey)}</Link>
             </li>)}
           </ul>
         </div>

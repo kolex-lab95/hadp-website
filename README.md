@@ -1,6 +1,6 @@
 # HADP — Site institutionnel
 
-Projet Next.js du site officiel de l’ONG HADP. La Phase 2 livre la page d’accueil complète en français et en anglais. Les pages internes, le CMS, les dons, la newsletter et la vidéothèque ne sont pas encore développés.
+Projet Next.js du site officiel de l’ONG HADP. Les Phases 1 à 3 livrent la page d’accueil et les pages institutionnelles en français et en anglais. Le CMS, les dons, la newsletter et la vidéothèque ne sont pas développés.
 
 ## Démarrage
 
@@ -22,10 +22,11 @@ hadp-website/
 ├── qa/                       # Captures de contrôle
 ├── scripts/                  # Contrôle des dictionnaires
 ├── src/
-│   ├── app/[locale]/         # Layout et accueil localisés
+│   ├── app/[locale]/         # Layout et routes localisées
 │   ├── components/
 │   │   ├── layout/           # Header, navigation mobile, footer
 │   │   ├── sections/home/    # Sections de la page d’accueil
+│   │   ├── sections/internal/# Pages internes réutilisables
 │   │   └── ui/               # Primitives du design system
 │   ├── config/               # Identité, navigation, médias et réseaux
 │   ├── content/              # Données institutionnelles structurées
@@ -33,7 +34,8 @@ hadp-website/
 │   └── styles/globals.css    # Tokens et styles globaux
 ├── tests/foundations.spec.ts
 ├── PHASE-1.md
-└── PHASE-2.md
+├── PHASE-2.md
+└── PHASE-3.md
 ```
 
 ## Choix techniques
@@ -68,4 +70,4 @@ npm run test:ui
 
 La recette Playwright couvre le français et l’anglais aux largeurs 360, 390, 430, 768, 1024, 1366, 1440 et 1920 px. Elle contrôle notamment le débordement horizontal, les cibles tactiles, le clavier, le menu mobile, le zoom texte à 200 %, les erreurs console et les règles automatisables WCAG 2.1 AA.
 
-Voir `PHASE-2.md` pour le périmètre livré, les résultats et les éléments provisoires.
+Voir `PHASE-2.md` et `PHASE-3.md` pour le périmètre livré et les résultats de recette.

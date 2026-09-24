@@ -1,11 +1,12 @@
 import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
 import {Badge} from '@/components/ui/badge';
-import {ButtonLink} from '@/components/ui/button';
+import {buttonStyles} from '@/components/ui/button';
 import {Container} from '@/components/ui/container';
 import {homeMedia} from '@/config/media';
 import {site} from '@/config/site';
 import type {Locale} from '@/i18n/routing';
+import {Link} from '@/i18n/navigation';
 
 export async function Hero({locale}: {locale: Locale}) {
   const t = await getTranslations();
@@ -18,8 +19,8 @@ export async function Hero({locale}: {locale: Locale}) {
         <h1 className="hero-title mt-6">{t('heroTitle')}</h1>
         <p className="mt-6 max-w-2xl text-lg leading-relaxed text-white/85">{t('heroDescription')}</p>
         <div className="mt-8 flex flex-wrap gap-3">
-          <ButtonLink href="#about" variant="accent">{t('discoverHadp')}</ButtonLink>
-          <ButtonLink href="#actions" className="button--hero-secondary">{t('ourActions')}</ButtonLink>
+          <Link href="/about" className={buttonStyles({variant: 'accent'})}>{t('discoverHadp')}</Link>
+          <Link href="/actions" className={buttonStyles({className: 'button--hero-secondary'})}>{t('ourActions')}</Link>
         </div>
       </div>
       <figure className="hero-media">

@@ -109,10 +109,28 @@
   .hero-media::after { content: ''; @apply absolute inset-0; background: linear-gradient(180deg, transparent 58%, rgb(59 8 82 / 0.58)); }
   .hero-photo-label { @apply absolute bottom-5 right-5 z-10 rounded-full border border-white/30 bg-brand-purple/80 px-4 py-2 text-sm font-semibold text-white backdrop-blur-sm; }
 
+  .internal-hero { @apply relative overflow-clip bg-brand-purple text-white; }
+  .internal-hero::before { content: ''; position: absolute; right: -12rem; bottom: -14rem; width: 30rem; height: 30rem; border: 1px solid rgb(253 203 2 / 0.25); border-radius: 999px; }
+  .internal-hero-grid { @apply grid gap-0 lg:grid-cols-[0.94fr_1.06fr] lg:items-stretch; }
+  .internal-hero-copy { @apply relative z-10 flex flex-col justify-center py-14 sm:py-20 lg:pr-12; }
+  .internal-hero-title { @apply max-w-3xl font-heading font-extrabold tracking-[-0.04em] text-white; font-size: clamp(2.75rem, 5.7vw, 5.75rem); line-height: 0.98; }
+  .internal-hero-media { @apply relative -mx-5 overflow-hidden sm:mx-0 sm:rounded-t-[2rem] lg:rounded-none; min-height: 19rem; }
+  .internal-hero-media::after { content: ''; @apply absolute inset-0; background: linear-gradient(180deg, transparent 52%, rgb(59 8 82 / 0.38)); }
+
   .editorial-split { @apply grid items-center gap-10 lg:grid-cols-[1.08fr_0.92fr] lg:gap-20; }
   .editorial-image { @apply overflow-hidden rounded-panel bg-line; aspect-ratio: 5 / 4; }
   .editorial-image img { transition: transform 420ms ease; }
   .editorial-image:hover img { transform: scale(1.025); }
+
+  .about-purpose { @apply bg-brand-purple py-16 text-white sm:py-20; }
+  .about-purpose-grid { @apply grid gap-10 lg:grid-cols-2 lg:gap-16; }
+  .value-list { @apply grid border-t border-line sm:grid-cols-2 lg:grid-cols-3; }
+  .value-item { @apply grid gap-4 border-b border-line py-6 sm:px-5 lg:py-8; grid-template-columns: 2.5rem minmax(0, 1fr); }
+  .value-item:nth-child(odd) { @apply sm:pl-0 lg:px-5; }
+  .value-item:nth-child(3n + 1) { @apply lg:pl-0; }
+  .value-item span { @apply font-heading text-xl font-extrabold text-brand-purple; }
+  .value-item h3 { @apply font-heading text-xl font-bold text-brand-purple; }
+  .value-item p { @apply mt-2 text-sm text-muted; }
 
   .intervention-list { @apply border-t border-line; }
   .intervention-row { @apply grid items-start gap-4 border-b border-line py-6; grid-template-columns: 2rem 3rem minmax(0, 1fr); }
@@ -121,6 +139,17 @@
   .intervention-icon svg { @apply size-6; stroke-width: 1.7; }
   .intervention-row { transition: border-color 160ms ease, padding-left 160ms ease; }
   .intervention-row:hover { @apply border-brand-yellow; padding-left: 0.35rem; }
+
+  .intervention-details { @apply grid gap-6; }
+  .intervention-detail { @apply grid overflow-hidden rounded-panel bg-surface md:grid-cols-2; }
+  .intervention-detail:nth-child(even) .intervention-detail-copy { @apply md:order-2; }
+  .intervention-detail-copy { @apply grid content-center gap-x-4 p-7 sm:p-10; grid-template-columns: 2.5rem 3rem minmax(0, 1fr); }
+  .intervention-detail-number { @apply pt-3 text-xs font-bold tracking-[0.14em] text-muted; }
+  .intervention-detail-copy h2 { @apply col-span-2 col-start-2 mt-5 font-heading text-2xl font-bold text-brand-purple; }
+  .intervention-detail-copy p { @apply col-span-2 col-start-2 mt-3 text-muted; }
+  .intervention-detail-image { @apply min-h-60 overflow-hidden; }
+  .intervention-detail-image img { transition: transform 420ms ease; }
+  .intervention-detail:hover img { transform: scale(1.025); }
 
   .impact-section { @apply relative overflow-clip bg-brand-purple text-white; }
   .impact-section::after { content: ''; position: absolute; right: -8rem; top: -13rem; width: 24rem; height: 24rem; border-radius: 999px; border: 1px solid rgb(255 255 255 / 0.14); }
@@ -137,6 +166,14 @@
   .action-row:first-child { @apply md:pl-0; }
   .action-row:last-child { @apply lg:border-r-0 lg:pr-0; }
   .action-index { @apply mb-4 block font-heading text-2xl font-extrabold text-brand-purple; }
+
+  .action-page-list { @apply border-t border-line; }
+  .action-page-list li { @apply grid gap-5 border-b border-line py-7 sm:gap-8 sm:py-9; grid-template-columns: 3rem minmax(0, 1fr); }
+  .action-page-list li > span { @apply pt-1 font-heading text-2xl font-extrabold text-brand-purple; }
+  .action-page-list h2 { @apply font-heading text-2xl font-bold text-brand-purple; }
+  .action-page-list p { @apply mt-3 max-w-prose text-muted; }
+  .perspectives-section { @apply bg-brand-purple py-16 text-white sm:py-20; }
+  .perspectives-grid { @apply grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end lg:gap-20; }
 
   .target-groups-grid { @apply grid items-center gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:gap-20; }
   .audience-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(12rem, 100%), 1fr)); }
@@ -161,10 +198,25 @@
   .gallery-item--2, .gallery-item--3 { @apply md:col-span-2; }
   .gallery-item img { transition: transform 400ms ease; }
   .gallery-item:hover img { transform: scale(1.025); }
+  .gallery-page-grid { @apply grid gap-4 md:grid-cols-5 md:grid-rows-2; }
+  .gallery-page-item { @apply min-h-64 overflow-hidden rounded-panel bg-line md:min-h-0; }
+  .gallery-page-item--1 { @apply md:col-span-3 md:row-span-2; }
+  .gallery-page-item--2, .gallery-page-item--3 { @apply md:col-span-2; }
+  .gallery-page-item img { transition: transform 400ms ease; }
+  .gallery-page-item:hover img { transform: scale(1.025); }
 
   .partnership-panel { @apply relative flex flex-col items-start justify-between gap-8 overflow-hidden rounded-[1.25rem] bg-brand-purple p-7 sm:p-10 lg:flex-row lg:items-center; }
   .partnership-panel::after { content: ''; position: absolute; width: 16rem; height: 16rem; right: -8rem; top: -10rem; border: 1px solid rgb(253 203 2 / 0.28); border-radius: 999px; }
   .partner-list { @apply relative z-10 flex flex-wrap items-center gap-4; }
+  .partners-page-layout { @apply grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20; }
+  .partner-types-list { @apply grid border-t border-line; }
+  .partner-types-list li { @apply grid items-center gap-5 border-b border-line py-6 sm:py-7; grid-template-columns: 3rem minmax(0, 1fr); transition: border-color 160ms ease, padding-left 160ms ease; }
+  .partner-types-list li:hover { @apply border-brand-yellow; padding-left: 0.35rem; }
+  .partner-types-list span { @apply text-xs font-bold tracking-[0.14em] text-muted; }
+  .partner-types-list h3 { @apply font-heading text-2xl font-bold text-brand-purple; }
+  .partnership-quote { @apply flex min-h-64 flex-col justify-between rounded-panel bg-brand-purple p-8 text-white sm:p-10; }
+  .partnership-quote > svg { @apply size-8 text-brand-yellow; }
+  .partnership-quote p { @apply max-w-prose font-heading text-2xl font-bold leading-snug; }
 
   .final-cta { @apply bg-brand-yellow py-16 sm:py-20; }
   .final-cta-title { @apply max-w-3xl font-heading font-extrabold tracking-tight text-brand-purple; font-size: clamp(2rem, 4vw, 3.75rem); line-height: 1.1; }
@@ -179,6 +231,23 @@
   .contact-method--whatsapp:hover { @apply bg-surface; transform: translateY(-2px); box-shadow: 0 0.65rem 1.5rem rgb(27 27 31 / 0.12); }
   .contact-method:active { transform: translateY(0); box-shadow: none; }
   .contact-actions-link { @apply w-full; }
+
+  .contact-page-grid { @apply grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20; }
+  .contact-details { @apply grid gap-4; }
+  .contact-details > :is(a, p) { @apply flex min-h-12 items-center gap-3 rounded-control text-brand-purple; }
+  .contact-details a { @apply font-semibold underline decoration-brand-purple/30 underline-offset-4; }
+  .contact-details a:hover { @apply decoration-brand-purple decoration-2; }
+  .contact-details svg { @apply size-5 shrink-0 text-brand-purple; }
+  .contact-form-panel { @apply rounded-panel bg-surface p-6 sm:p-10; }
+  .contact-form { @apply mt-7; }
+  .contact-form-grid { @apply grid gap-x-5 gap-y-6 sm:grid-cols-2; }
+  .contact-field { @apply grid gap-2 text-sm font-semibold text-brand-purple; }
+  .contact-field--full { @apply sm:col-span-2; }
+  .contact-field input, .contact-field textarea { @apply w-full rounded-control border border-line bg-white px-4 py-3 text-base font-normal text-ink; transition: border-color 160ms ease, box-shadow 160ms ease; }
+  .contact-field textarea { resize: vertical; }
+  .contact-field input:focus, .contact-field textarea:focus { @apply border-brand-purple; box-shadow: 0 0 0 0.2rem rgb(59 8 82 / 0.12); outline: none; }
+  .contact-field input[aria-invalid="true"], .contact-field textarea[aria-invalid="true"] { border-color: #b91c1c; }
+  .contact-field small { @apply font-normal; color: #b91c1c; }
 
   .site-footer { @apply bg-brand-purple py-14 text-white; }
   .footer-grid { @apply grid gap-10 sm:grid-cols-2 lg:grid-cols-[1.2fr_1fr_0.9fr_1.1fr]; }
@@ -217,6 +286,8 @@
 @media (min-width: 64rem) {
   .hero-grid { min-height: calc(100svh - 5rem); }
   .hero-media { min-height: 44rem; aspect-ratio: auto; }
+  .internal-hero-grid { min-height: 32rem; }
+  .internal-hero-media { min-height: 32rem; }
   .editorial-image--portrait { aspect-ratio: 6 / 5; }
 }
 

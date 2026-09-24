@@ -4,6 +4,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Menu, X} from 'lucide-react';
 import type {NavigationItem} from '@/config/navigation';
 import {buttonStyles} from '@/components/ui/button';
+import {Link} from '@/i18n/navigation';
 import {LanguageSwitcher} from './language-switcher';
 
 type Props = {
@@ -87,10 +88,10 @@ export function MobileMenu({items, openLabel, closeLabel, ctaLabel}: Props) {
         </div>
         <ul className="grid gap-1">
           {items.map((item) => <li key={item.href}>
-            <a href={item.href} className="mobile-nav-link" onClick={close}>{item.label}</a>
+            <Link href={item.href} className="mobile-nav-link" onClick={close}>{item.label}</Link>
           </li>)}
         </ul>
-        <a href="#contact" className={buttonStyles({variant: 'accent', className: 'mt-7 w-full'})} onClick={close}>{ctaLabel}</a>
+        <Link href="/contact" className={buttonStyles({variant: 'accent', className: 'mt-7 w-full'})} onClick={close}>{ctaLabel}</Link>
       </nav>
     </div>
   </div>;
