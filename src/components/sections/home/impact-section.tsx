@@ -10,7 +10,7 @@ export async function ImpactSection() {
     <Container className="grid gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-16">
       <SectionHeading id="impact-heading" eyebrow={t('impactEyebrow')} title={t('impactTitle')}
         description={t('impactIntro')} tone="inverse" />
-      <dl className="impact-grid">
+      <dl className="impact-grid impact-grid--4">
         {impactStats.map((stat) => <div key={stat.id} className="impact-stat">
           <dt className="order-2 mt-3 font-semibold text-white">{t(stat.labelKey)}</dt>
           <dd className="order-1 font-heading text-5xl font-extrabold text-brand-yellow">{stat.value}</dd>

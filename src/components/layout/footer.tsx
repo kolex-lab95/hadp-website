@@ -15,7 +15,7 @@ export async function Footer() {
   return <footer className="site-footer">
     <Container>
       <div className="footer-grid">
-        <div>
+        <div className="footer-brand">
           <div className="flex items-center gap-3">
             <span className="footer-logo-mark">
               <Image src={site.logo.src} width={site.logo.width} height={site.logo.height} alt="" sizes="54px" className="h-auto w-14" />
@@ -25,7 +25,7 @@ export async function Footer() {
           <p className="mt-5 font-heading text-lg font-bold text-brand-yellow">{site.slogan[locale]}</p>
           <p className="mt-3 max-w-xs text-sm text-white/70">{t('footerAbout')}</p>
         </div>
-        <div>
+        <div className="footer-column">
           <h2 className="footer-heading">{t('footerNavigation')}</h2>
           <ul className="footer-navigation-list">
             {siteNavigation.map((item) => <li key={item.href}>
@@ -33,13 +33,13 @@ export async function Footer() {
             </li>)}
           </ul>
         </div>
-        <div>
+        <div className="footer-column footer-column--domains">
           <h2 className="footer-heading">{t('footerDomains')}</h2>
-          <ul className="mt-4 space-y-2 text-sm text-white/70">
-            {interventions.slice(0, 4).map((item) => <li key={item.id}>{t(item.titleKey)}</li>)}
+          <ul className="footer-domain-list">
+            {interventions.slice(0, 4).map((item) => <li key={item.id}><span aria-hidden="true" />{t(item.titleKey)}</li>)}
           </ul>
         </div>
-        <div>
+        <div className="footer-column footer-column--contact">
           <h2 className="footer-heading">{t('contact')}</h2>
           <address className="mt-4 not-italic">
             <dl className="footer-contact-list">

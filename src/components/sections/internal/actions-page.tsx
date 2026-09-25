@@ -16,14 +16,14 @@ export async function ActionsPage() {
       image={{...heroImage, alt: t(heroImage.altKey)}} />
     <section className="section-space reveal" aria-labelledby="realised-actions-heading">
       <Container className="grid gap-12 lg:grid-cols-[0.8fr_1.2fr] lg:gap-20">
-        <div><SectionHeading id="realised-actions-heading" eyebrow={t('realisedActionsEyebrow')} title={t('realisedActionsTitle')}
+        <div className="actions-page-intro"><SectionHeading id="realised-actions-heading" eyebrow={t('realisedActionsEyebrow')} title={t('realisedActionsTitle')}
           description={t('realisedActionsIntro')} className="lg:sticky lg:top-28" />
-          <figure className="mt-8 overflow-hidden rounded-panel"><Image src={image.src} width={image.width} height={image.height}
+          <figure className="action-page-visual mt-8"><Image src={image.src} width={image.width} height={image.height}
             alt={t(image.altKey)} sizes="(max-width: 1023px) 100vw, 35vw" className="h-full w-full object-cover" /></figure></div>
         <ol className="action-page-list">
           {fieldActions.map((action, index) => <li key={action.id}>
             <span>{String(index + 1).padStart(2, '0')}</span>
-            <div><h2>{t(action.titleKey)}</h2><p>{t(action.descriptionKey)}</p></div>
+            <div><p className="action-page-label">{t('documentedAction')}</p><h2>{t(action.titleKey)}</h2><p>{t(action.descriptionKey)}</p></div>
           </li>)}
         </ol>
       </Container>

@@ -9,7 +9,7 @@ export async function TargetGroups() {
   const t = await getTranslations();
   const image = homeMedia.communityTwo;
 
-  return <section aria-labelledby="people-heading" className="section-space bg-surface reveal">
+  return <section aria-labelledby="people-heading" className="people-section section-space reveal">
     <Container className="target-groups-grid">
       <div>
         <SectionHeading id="people-heading" eyebrow={t('peopleEyebrow')} title={t('peopleTitle')} description={t('peopleIntro')} />

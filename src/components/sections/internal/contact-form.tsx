@@ -1,6 +1,6 @@
 'use client';
 
-import {useRef, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 
 type ContactLabels = Readonly<{
   name: string;
@@ -14,13 +14,17 @@ type ContactLabels = Readonly<{
   invalidEmail: string;
 }>;
 
-type Props = Readonly<{labels: ContactLabels; address: string}>;
+type Props = Readonly<{labels: ContactLabels; address: string; initialMessage?: string}>;
 type Errors = Partial<Record<'name' | 'email' | 'subject' | 'message', string>>;
 type FieldName = 'name' | 'email' | 'phone' | 'subject';
 
-export function ContactForm({labels, address}: Props) {
+export function ContactForm({labels, address, initialMessage = ''}: Props) {
   const formRef = useRef<HTMLFormElement>(null);
   const [errors, setErrors] = useState<Errors>({});
+
+  useEffect(() => {
+    if (initialMessage) formRef.current?.closest('section')?.scrollIntoView({block: 'start'});
+  }, [initialMessage]);
 
   const submit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -61,9 +65,9 @@ export function ContactForm({labels, address}: Props) {
       {field('phone', labels.phone, 'tel')}
       <label className="contact-field" htmlFor="contact-organisation"><span>{labels.organisation}</span><input id="contact-organisation" name="organisation" /></label>
       {field('subject', labels.subject)}
-      <label className="contact-field contact-field--full" htmlFor="contact-message"><span>{labels.message}</span><textarea id="contact-message" name="message" rows={6} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined} />
+      <label className="contact-field contact-field--full" htmlFor="contact-message"><span>{labels.message}</span><textarea id="contact-message" name="message" rows={6} defaultValue={initialMessage} aria-invalid={Boolean(errors.message)} aria-describedby={errors.message ? 'contact-message-error' : undefined} />
         {errors.message && <small id="contact-message-error">{errors.message}</small>}</label>
     </div>
-    <button type="submit" className="button button--primary mt-6">{labels.send}</button>
+    <div className="contact-form-actions"><button type="submit" className="button button--primary">{labels.send}</button></div>
   </form>;
 }

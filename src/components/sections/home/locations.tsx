@@ -7,7 +7,7 @@ import {regions} from '@/content/home';
 export async function Locations() {
   const t = await getTranslations();
 
-  return <section aria-labelledby="zones-heading" className="section-space reveal">
+  return <section aria-labelledby="zones-heading" className="locations-section section-space reveal">
     <Container className="locations-layout">
       <div>
         <div className="location-mark"><MapPinned aria-hidden="true" /></div>

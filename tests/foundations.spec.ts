@@ -176,6 +176,50 @@ for (const width of [360, 390, 430]) {
   });
 }
 
+for (const width of [360, 390, 430, 768]) {
+  test(`Menu mobile : sélecteur de langue entièrement visible à ${width}px`, async ({page}) => {
+    await page.setViewportSize({width, height: 844});
+    await page.goto('/');
+    await page.locator('button[aria-controls="mobile-navigation"]').click();
+    const dialog = page.getByRole('dialog', {name: 'Ouvrir le menu principal'});
+    const trigger = dialog.getByRole('button', {name: /Choisir la langue/});
+    await trigger.click();
+    const layout = await page.locator('.mobile-menu .language-menu').evaluate((menu) => {
+      const box = menu.getBoundingClientRect();
+      const triggerBox = menu.closest('.language-switcher')?.querySelector('button')?.getBoundingClientRect();
+      return {left: box.left, right: box.right, width: document.documentElement.scrollWidth, viewport: innerWidth,
+        triggerLeft: triggerBox?.left, triggerRight: triggerBox?.right};
+    });
+    expect(layout.width).toBeLessThanOrEqual(layout.viewport);
+    expect(layout.left).toBeGreaterThanOrEqual(-1);
+    expect(layout.right).toBeLessThanOrEqual(layout.viewport + 1);
+    expect(layout.triggerLeft).toBeGreaterThanOrEqual(-1);
+    expect(layout.triggerRight).toBeLessThanOrEqual(layout.viewport + 1);
+    await page.keyboard.press('Escape');
+    await expect(trigger).toBeFocused();
+  });
+}
+
+for (const width of [1024, 1366, 1440, 1920]) {
+  test(`Domaines : introduction sticky à ${width}px`, async ({page}) => {
+    await page.setViewportSize({width, height: 960});
+    await page.goto('/');
+    const section = page.locator('#interventions');
+    const heading = page.locator('#interventions-heading');
+    const stickyBlock = heading.locator('..');
+    await section.scrollIntoViewIfNeeded();
+    await page.evaluate(() => {
+      const target = document.querySelector<HTMLElement>('#interventions');
+      document.documentElement.style.scrollBehavior = 'auto';
+      if (target) window.scrollTo(0, target.offsetTop + 320);
+    });
+    await expect.poll(() => stickyBlock.evaluate((element) => Math.round(element.getBoundingClientRect().top))).toBe(112);
+    await expect(stickyBlock).toHaveCSS('position', 'sticky');
+    const layout = await page.evaluate(() => ({width: document.documentElement.scrollWidth, viewport: innerWidth}));
+    expect(layout.width).toBeLessThanOrEqual(layout.viewport);
+  });
+}
+
 test('Footer : coordonnées sobres et réseaux sans redirection', async ({page}) => {
   await page.goto('/');
   await expect(page.locator('a[href="mailto:contact@hadpniger.com"]')).toHaveCount(2);
@@ -296,6 +340,47 @@ test('Contact : validation accessible et liens directs', async ({page}) => {
   await expect(page.getByRole('link', {name: /WhatsApp/})).toHaveAttribute('href', 'https://wa.me/22796508146');
 });
 
+test('Impact : les quatre indicateurs restent présents', async ({page}) => {
+  await page.goto('/');
+  const impact = page.locator('#impact');
+  await expect(impact.locator('.impact-stat')).toHaveCount(4);
+  await expect(impact.getByText('X+', {exact: true})).toHaveCount(2);
+});
+
+for (const width of [360, 390, 768, 1440]) {
+  test(`Partenaires : titre hero sans débordement à ${width}px`, async ({page}) => {
+    await page.setViewportSize({width, height: 960});
+    await page.goto('/partners');
+    const title = page.locator('.internal-hero-title');
+    await expect(title).toBeVisible();
+    const layout = await title.evaluate((element) => {
+      const box = element.getBoundingClientRect();
+      return {left: box.left, right: box.right, viewport: window.innerWidth, pageWidth: document.documentElement.scrollWidth};
+    });
+    expect(layout.left).toBeGreaterThanOrEqual(-1);
+    expect(layout.right).toBeLessThanOrEqual(layout.viewport + 1);
+    expect(layout.pageWidth).toBeLessThanOrEqual(layout.viewport);
+  });
+}
+
+for (const locale of ['fr', 'en'] as const) {
+  for (const route of ['/', '/partners']) {
+  test(`Partenariat ${locale} : redirection et message prérempli depuis ${route}`, async ({page}) => {
+    await page.setViewportSize({width: 1440, height: 960});
+    await page.goto(locale === 'en' ? `/en${route === '/' ? '' : route}` : route);
+    const copy = locale === 'fr'
+      ? {button: 'Devenir partenaire', message: 'Bonjour, nous souhaitons entrer en contact avec HADP pour une éventuelle collaboration / demande de partenariat.'}
+      : {button: 'Become a partner', message: 'Hello, we would like to get in touch with HADP to explore a possible collaboration or partnership.'};
+    const link = page.getByRole('link', {name: copy.button});
+    await expect(link).toHaveAttribute('href', /\/contact\?message=/);
+    await link.click();
+    await expect(page).toHaveURL(/\/contact\?message=/);
+    await expect(page.locator('#contact-message')).toHaveValue(copy.message);
+    await expect(page.locator('#contact-form-heading')).toBeInViewport();
+  });
+  }
+}
+
 test('Captures finales de contrôle à 390px et 1440px', async ({page}) => {
   test.setTimeout(60000);
   for (const width of [390, 1440]) {
@@ -341,5 +426,32 @@ test('Captures Phase 3', async ({page}) => {
     await page.evaluate(() => window.scrollTo(0, 0));
     await page.screenshot({path: capture.path, fullPage: true});
   }
+});
+
+test('Captures — retouches ciblées', async ({page}) => {
+  test.setTimeout(90000);
+  const captures = [
+    {route: '/partners', width: 1440, height: 1000, path: 'qa/phase-3-5-targeted-partners-1440.png'},
+    {route: '/about', width: 1440, height: 1000, path: 'qa/phase-3-5-targeted-about-1440.png'},
+    {route: '/contact', width: 1440, height: 1000, path: 'qa/phase-3-5-targeted-contact-1440.png'},
+    {route: '/contact', width: 390, height: 844, path: 'qa/phase-3-5-targeted-contact-390.png'},
+  ];
+  for (const capture of captures) {
+    await page.setViewportSize({width: capture.width, height: capture.height});
+    await page.goto(capture.route);
+    const sections = page.locator('.reveal');
+    for (let index = 0; index < await sections.count(); index += 1) {
+      await sections.nth(index).scrollIntoViewIfNeeded();
+      await expect(sections.nth(index)).toHaveAttribute('data-revealed', 'true');
+    }
+    await page.evaluate(() => window.scrollTo(0, 0));
+    await page.screenshot({path: capture.path, fullPage: true});
+  }
+  await page.setViewportSize({width: 1440, height: 1000});
+  await page.goto('/');
+  const interventions = page.locator('#interventions');
+  await interventions.scrollIntoViewIfNeeded();
+  await expect(interventions).toHaveAttribute('data-revealed', 'true');
+  await interventions.screenshot({path: 'qa/phase-3-5-targeted-home-interventions-1440.png'});
 });
 

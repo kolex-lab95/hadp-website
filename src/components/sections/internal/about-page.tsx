@@ -52,11 +52,11 @@ export async function AboutPage() {
         </ul>
       </Container>
     </section>
-    <section className="section-space reveal" aria-labelledby="approach-heading">
-      <Container className="editorial-split">
-        <figure className="editorial-image"><Image src={community.src} width={community.width} height={community.height}
+    <section className="about-approach section-space reveal" aria-labelledby="approach-heading">
+      <Container className="about-approach-grid editorial-split">
+        <figure className="about-approach-image editorial-image"><Image src={community.src} width={community.width} height={community.height}
           alt={t(community.altKey)} sizes="(max-width: 1023px) 100vw, 46vw" className="h-full w-full object-cover" /></figure>
-        <div><SectionHeading id="approach-heading" eyebrow={t('approachEyebrow')} title={t('approachTitle')} description={t('approachIntro')} />
+        <div className="about-approach-copy"><SectionHeading id="approach-heading" eyebrow={t('approachEyebrow')} title={t('approachTitle')} description={t('approachIntro')} />
           <p className="mt-6 max-w-prose text-lg">{t('approachBody')}</p></div>
       </Container>
     </section>

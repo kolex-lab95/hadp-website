@@ -1,12 +1,11 @@
 import {ArrowUpRight} from 'lucide-react';
 import {getTranslations} from 'next-intl/server';
-import {buttonStyles} from '@/components/ui/button';
 import {Container} from '@/components/ui/container';
 import {SectionHeading} from '@/components/ui/section-heading';
 import {homeMedia} from '@/config/media';
 import {partnerTypes} from '@/content/internal';
-import {Link} from '@/i18n/navigation';
 import {PageHero} from './page-hero';
+import {PartnerCallToAction} from './partner-call-to-action';
 
 export async function PartnersPage() {
   const t = await getTranslations();
@@ -23,11 +22,11 @@ export async function PartnersPage() {
         </ul>
       </Container>
     </section>
-    <section className="section-space bg-surface reveal" aria-labelledby="partner-approach-heading">
+    <section className="partnership-trust-section section-space reveal" aria-labelledby="partner-approach-heading">
       <Container className="editorial-split"><div>
         <SectionHeading id="partner-approach-heading" eyebrow={t('partnerApproachEyebrow')} title={t('partnerApproachTitle')}
           description={t('partnerApproachBody')} />
-        <Link href="/contact" className={buttonStyles({className: 'mt-8'})}>{t('becomePartner')}</Link>
+        <div className="mt-8"><PartnerCallToAction /></div>
       </div><div className="partnership-quote"><ArrowUpRight aria-hidden="true" /><p>{t('partnerQuote')}</p></div></Container>
     </section>
   </>;

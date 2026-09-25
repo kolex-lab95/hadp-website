@@ -1,9 +1,8 @@
 import Image from 'next/image';
 import {getTranslations} from 'next-intl/server';
-import {buttonStyles} from '@/components/ui/button';
 import {Container} from '@/components/ui/container';
 import {partners} from '@/content/partners';
-import {Link} from '@/i18n/navigation';
+import {PartnerCallToAction} from '@/components/sections/internal/partner-call-to-action';
 
 export async function PartnersPreview() {
   const t = await getTranslations();
@@ -23,7 +22,7 @@ export async function PartnersPreview() {
               : <Image src={partner.logo} width={160} height={80} alt={partner.name} />}
           </li>)}
         </ul>}
-        <Link href="/contact" className={buttonStyles({variant: 'accent'})}>{t('becomePartner')}</Link>
+        <PartnerCallToAction />
       </div>
     </Container>
   </section>;

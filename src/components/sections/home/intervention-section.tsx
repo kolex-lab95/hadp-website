@@ -16,7 +16,7 @@ const icons = {
 export async function InterventionSection() {
   const t = await getTranslations();
 
-  return <section id="interventions" aria-labelledby="interventions-heading" className="section-space bg-surface reveal">
+  return <section id="interventions" aria-labelledby="interventions-heading" className="intervention-section section-space reveal">
     <Container className="grid gap-10 lg:grid-cols-[0.72fr_1.28fr] lg:gap-20">
       <SectionHeading id="interventions-heading" eyebrow={t('interventionsEyebrow')} title={t('interventionsTitle')}
         description={t('interventionsIntro')} className="lg:sticky lg:top-28 lg:self-start" />

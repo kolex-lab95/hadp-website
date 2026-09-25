@@ -4,7 +4,7 @@ import {useEffect, useRef, useState} from 'react';
 import {Menu, X} from 'lucide-react';
 import type {NavigationItem} from '@/config/navigation';
 import {buttonStyles} from '@/components/ui/button';
-import {Link} from '@/i18n/navigation';
+import {Link, usePathname} from '@/i18n/navigation';
 import {LanguageSwitcher} from './language-switcher';
 
 type Props = {
@@ -18,6 +18,7 @@ const focusableSelector = 'a[href], button:not([disabled]), [tabindex]:not([tabi
 
 export function MobileMenu({items, openLabel, closeLabel, ctaLabel}: Props) {
   const [open, setOpen] = useState(false);
+  const pathname = usePathname();
   const buttonRef = useRef<HTMLButtonElement>(null);
   const panelRef = useRef<HTMLDivElement>(null);
 
@@ -34,6 +35,7 @@ export function MobileMenu({items, openLabel, closeLabel, ctaLabel}: Props) {
 
     const onKeyDown = (event: KeyboardEvent) => {
       if (event.key === 'Escape') {
+        if (panelRef.current?.querySelector('.language-switcher[data-open="true"]')) return;
         event.preventDefault();
         setOpen(false);
         buttonRef.current?.focus();
@@ -81,14 +83,14 @@ export function MobileMenu({items, openLabel, closeLabel, ctaLabel}: Props) {
     <div ref={panelRef} id="mobile-navigation" className="mobile-menu" data-open={open}
       role="dialog" aria-modal="true" aria-label={openLabel} aria-hidden={!open} inert={!open}
       onPointerDown={(event) => { if (event.target === event.currentTarget) closeAndFocus(); }}>
-      <nav className="mobile-menu-panel flex min-h-full flex-col px-6 py-7" aria-label={openLabel}>
-        <div className="mb-5 flex items-center justify-between border-b border-line pb-5">
+      <nav className="mobile-menu-panel flex min-h-full flex-col px-5 py-6 sm:px-6 sm:py-7" aria-label={openLabel}>
+        <div className="mobile-menu-toolbar mb-5 flex items-center justify-between gap-3 border-b border-line pb-5">
           <LanguageSwitcher />
           <span className="text-sm font-semibold text-muted">HADP</span>
         </div>
         <ul className="grid gap-1">
           {items.map((item) => <li key={item.href}>
-            <Link href={item.href} className="mobile-nav-link" onClick={close}>{item.label}</Link>
+            <Link href={item.href} className="mobile-nav-link" aria-current={item.href === '/' ? pathname === '/' ? 'page' : undefined : pathname === item.href ? 'page' : undefined} onClick={close}>{item.label}</Link>
           </li>)}
         </ul>
         <Link href="/contact" className={buttonStyles({variant: 'accent', className: 'mt-7 w-full'})} onClick={close}>{ctaLabel}</Link>

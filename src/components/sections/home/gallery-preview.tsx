@@ -8,10 +8,10 @@ import {galleryImages} from '@/content/home';
 export async function GalleryPreview() {
   const t = await getTranslations();
 
-  return <section id="gallery" aria-labelledby="gallery-heading" className="section-space bg-surface reveal">
+  return <section id="gallery" aria-labelledby="gallery-heading" className="gallery-preview-section section-space reveal">
     <Container>
       <div>
-        <SectionHeading id="gallery-heading" eyebrow={t('galleryEyebrow')} title={t('galleryTitle')} description={t('galleryIntro')} />
+        <SectionHeading id="gallery-heading" eyebrow={t('galleryEyebrow')} title={t('galleryTitle')} description={t('galleryIntro')} tone="inverse" />
       </div>
       <div className="gallery-grid mt-10">
         {galleryImages.map((key, index) => {
