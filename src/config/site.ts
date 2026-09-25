@@ -8,7 +8,7 @@ export const site = {
   },
   phone: '+227 96 50 81 46',
   whatsappUrl: 'https://wa.me/22796508146',
-  email: {address: 'contact@hadpniger.com', provisional: true},
+  email: {address: 'contact@hadp-niger.org', provisional: true},
   location: {city: 'Tahoua', country: 'Niger'},
   logo: {src: '/images/hadp-logo.png', width: 1546, height: 1017},
   // Ne pas déduire le domaine officiel de l'adresse e-mail provisoire.

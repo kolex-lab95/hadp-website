@@ -28,7 +28,7 @@ Les huit largeurs demandées sont conformes dans les deux langues. Aucun débord
 ## Éléments provisoires
 
 - Les trois photographies de terrain sont identifiées comme provisoires dans `src/config/media.ts`. Les fichiers originaux, crédits, légendes définitives et autorisations de diffusion restent à valider.
-- L’e-mail `contact@hadpniger.com` reste provisoire.
+- L’e-mail `contact@hadp-niger.org` reste provisoire.
 - Les partenaires restent sans logos ni liens jusqu’à leur renseignement.
 - Les cinq URLs sociales restent à `null` ; les icônes conservent une interaction sans navigation. Le contact WhatsApp est présenté dans le CTA final.
 - Les indicateurs d’impact centralisés sont `4+`, `8`, `X+` et `X+`.

@@ -222,7 +222,7 @@ for (const width of [1024, 1366, 1440, 1920]) {
 
 test('Footer : coordonnées sobres et réseaux sans redirection', async ({page}) => {
   await page.goto('/');
-  await expect(page.locator('a[href="mailto:contact@hadpniger.com"]')).toHaveCount(2);
+  await expect(page.locator('a[href="mailto:contact@hadp-niger.org"]')).toHaveCount(2);
   const whatsapp = page.locator('main a[href="https://wa.me/22796508146"]');
   await expect(whatsapp).toHaveCount(1);
   for (const link of await whatsapp.all()) {
@@ -250,10 +250,10 @@ for (const width of [360, 390, 768, 1440]) {
     const email = cta.getByRole('link', {name: 'Nous écrire'});
     const whatsapp = cta.getByRole('link', {name: /WhatsApp/});
 
-    await expect(email).toHaveAttribute('href', 'mailto:contact@hadpniger.com');
+    await expect(email).toHaveAttribute('href', 'mailto:contact@hadp-niger.org');
     await expect(whatsapp).toHaveAttribute('href', 'https://wa.me/22796508146');
     await expect(whatsapp).toHaveAttribute('target', '_blank');
-    await expect(cta.getByText('contact@hadpniger.com', {exact: true})).toHaveCount(0);
+    await expect(cta.getByText('contact@hadp-niger.org', {exact: true})).toHaveCount(0);
     await expect(cta.getByText('+227 96 50 81 46', {exact: true})).toHaveCount(0);
 
     const geometry = await page.locator('.final-cta-actions').evaluate((actionsElement) => {
@@ -336,7 +336,7 @@ test('Contact : validation accessible et liens directs', async ({page}) => {
   await page.getByRole('button', {name: 'Envoyer'}).click();
   await expect(page.locator('#contact-name')).toHaveAttribute('aria-invalid', 'true');
   await expect(page.getByText('Ce champ est requis.').first()).toBeVisible();
-  await expect(page.getByRole('link', {name: 'Nous écrire'})).toHaveAttribute('href', 'mailto:contact@hadpniger.com');
+  await expect(page.getByRole('link', {name: 'Nous écrire'})).toHaveAttribute('href', 'mailto:contact@hadp-niger.org');
   await expect(page.getByRole('link', {name: /WhatsApp/})).toHaveAttribute('href', 'https://wa.me/22796508146');
 });
 
