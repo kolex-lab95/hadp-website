@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {getLocale, getTranslations} from 'next-intl/server';
+import {getTranslations} from 'next-intl/server';
 import {Container} from '@/components/ui/container';
 import {siteNavigation} from '@/config/navigation';
 import {phoneHref, site} from '@/config/site';
@@ -10,7 +10,6 @@ import {SocialLinks} from './social-links';
 
 export async function Footer() {
   const t = await getTranslations();
-  const locale = await getLocale();
 
   return <footer className="site-footer">
     <Container>
@@ -22,8 +21,7 @@ export async function Footer() {
             </span>
             <span className="font-heading text-2xl font-extrabold">{site.acronym}</span>
           </div>
-          <p className="mt-5 font-heading text-lg font-bold text-brand-yellow">{site.slogan[locale]}</p>
-          <p className="mt-3 max-w-xs text-sm text-white/70">{t('footerAbout')}</p>
+          <p className="mt-5 max-w-xs text-sm text-white/70">{t('footerAbout')}</p>
         </div>
         <div className="footer-column">
           <h2 className="footer-heading">{t('footerNavigation')}</h2>

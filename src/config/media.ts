@@ -2,7 +2,7 @@ export type ProjectImage = Readonly<{
   src: string;
   width: number;
   height: number;
-  altKey: 'imageCommunityAltOne' | 'imageCommunityAltTwo' | 'imageWorkshopAlt';
+  altKey: 'imageCommunityAltOne' | 'imageCommunityAltTwo' | 'imageWorkshopAlt' | 'imageEducationDigitalAlt';
   provisional: boolean;
 }>;
 
@@ -30,6 +30,13 @@ export const homeMedia = {
     width: 984,
     height: 462,
     altKey: 'imageWorkshopAlt',
+    provisional: true,
+  },
+  educationDigital: {
+    src: '/images/field/education-digital-literacy.webp',
+    width: 1536,
+    height: 1024,
+    altKey: 'imageEducationDigitalAlt',
     provisional: true,
   },
 } satisfies Record<string, ProjectImage>;

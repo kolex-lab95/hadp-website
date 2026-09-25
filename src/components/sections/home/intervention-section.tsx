@@ -1,4 +1,4 @@
-import {Boxes, HandHeart, House, ShieldCheck, Stethoscope, WalletCards} from 'lucide-react';
+import {Boxes, HandHeart, House, Laptop, ShieldCheck, Stethoscope, WalletCards} from 'lucide-react';
 import {getTranslations} from 'next-intl/server';
 import {Container} from '@/components/ui/container';
 import {SectionHeading} from '@/components/ui/section-heading';
@@ -11,6 +11,7 @@ const icons = {
   health: Stethoscope,
   shelter: House,
   logistics: Boxes,
+  educationDigital: Laptop,
 } as const;
 
 export async function InterventionSection() {

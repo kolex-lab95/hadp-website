@@ -26,7 +26,7 @@ export async function ContactPage({initialMessage}: Props) {
             <a href={phoneHref}><span className="contact-detail-icon"><Phone aria-hidden="true" /></span><span><small>{t('phone')}</small><strong>{site.phone}</strong></span></a>
             <p><span className="contact-detail-icon"><MapPin aria-hidden="true" /></span><span><small>{t('location')}</small><strong>{site.location.city} — {site.location.country}</strong></span></p>
           </address>
-          <div className="mt-8 flex flex-wrap gap-3">
+          <div className="contact-info-actions mt-8 flex flex-wrap gap-3">
             <a href={`mailto:${site.email.address}`} className={buttonStyles({variant: 'accent'})}><Mail aria-hidden="true" className="mr-2 size-5" />{t('writeToUs')}</a>
             <a href={site.whatsappUrl} target="_blank" rel="noopener noreferrer" className={buttonStyles({variant: 'secondary'})}
               aria-label={`WhatsApp — ${t('opensNewWindow')}`}><MessageCircle aria-hidden="true" className="mr-2 size-5" />WhatsApp</a>

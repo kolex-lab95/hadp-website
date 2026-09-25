@@ -19,8 +19,8 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
   setRequestLocale(locale);
 
   return <>
-    <Hero locale={locale} />
-    <AboutPreview locale={locale} />
+    <Hero />
+    <AboutPreview />
     <InterventionSection />
     <ImpactSection />
     <FieldActions />

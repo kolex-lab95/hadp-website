@@ -5,6 +5,7 @@ export const interventions = [
   {id: 'health', titleKey: 'interventionHealth', descriptionKey: 'interventionHealthDescription'},
   {id: 'shelter', titleKey: 'interventionShelter', descriptionKey: 'interventionShelterDescription'},
   {id: 'logistics', titleKey: 'interventionLogistics', descriptionKey: 'interventionLogisticsDescription'},
+  {id: 'educationDigital', titleKey: 'interventionEducationDigital', descriptionKey: 'interventionEducationDigitalDescription'},
 ] as const;
 
 export type ImpactStat = Readonly<{

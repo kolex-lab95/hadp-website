@@ -184,17 +184,19 @@ for (const width of [360, 390, 430, 768]) {
     const dialog = page.getByRole('dialog', {name: 'Ouvrir le menu principal'});
     const trigger = dialog.getByRole('button', {name: /Choisir la langue/});
     await trigger.click();
+    await page.waitForTimeout(200);
     const layout = await page.locator('.mobile-menu .language-menu').evaluate((menu) => {
       const box = menu.getBoundingClientRect();
       const triggerBox = menu.closest('.language-switcher')?.querySelector('button')?.getBoundingClientRect();
       return {left: box.left, right: box.right, width: document.documentElement.scrollWidth, viewport: innerWidth,
-        triggerLeft: triggerBox?.left, triggerRight: triggerBox?.right};
+        top: box.top, triggerLeft: triggerBox?.left, triggerRight: triggerBox?.right, triggerBottom: triggerBox?.bottom};
     });
     expect(layout.width).toBeLessThanOrEqual(layout.viewport);
     expect(layout.left).toBeGreaterThanOrEqual(-1);
     expect(layout.right).toBeLessThanOrEqual(layout.viewport + 1);
     expect(layout.triggerLeft).toBeGreaterThanOrEqual(-1);
     expect(layout.triggerRight).toBeLessThanOrEqual(layout.viewport + 1);
+    expect(layout.top).toBeGreaterThanOrEqual((layout.triggerBottom ?? 0) + 7);
     await page.keyboard.press('Escape');
     await expect(trigger).toBeFocused();
   });
@@ -339,6 +341,43 @@ test('Contact : validation accessible et liens directs', async ({page}) => {
   await expect(page.getByRole('link', {name: 'Nous écrire'})).toHaveAttribute('href', 'mailto:contact@hadp-niger.org');
   await expect(page.getByRole('link', {name: /WhatsApp/})).toHaveAttribute('href', 'https://wa.me/22796508146');
 });
+
+for (const width of [360, 390, 430]) {
+  test(`Contact : actions coordonnées empilées à ${width}px`, async ({page}) => {
+    await page.setViewportSize({width, height: 844});
+    await page.goto('/contact');
+    const actions = page.locator('.contact-info-actions');
+    const email = actions.getByRole('link', {name: 'Nous écrire'});
+    const whatsapp = actions.getByRole('link', {name: /WhatsApp/});
+    const geometry = await actions.evaluate((element) => {
+      const [first, second] = [...element.querySelectorAll('a')].map((link) => link.getBoundingClientRect());
+      return {first: {top: first!.top, width: first!.width, left: first!.left}, second: {top: second!.top, width: second!.width, left: second!.left}};
+    });
+    await expect(email).toBeVisible();
+    await expect(whatsapp).toBeVisible();
+    expect(geometry.second.top).toBeGreaterThan(geometry.first.top);
+    expect(Math.abs(geometry.first.width - geometry.second.width)).toBeLessThanOrEqual(1);
+    expect(Math.abs(geometry.first.left - geometry.second.left)).toBeLessThanOrEqual(1);
+  });
+}
+
+for (const locale of ['fr', 'en'] as const) {
+  test(`Hero et domaine numérique ${locale}`, async ({page}) => {
+    await page.setViewportSize({width: 1440, height: 960});
+    await page.goto(locale === 'fr' ? '/' : '/en');
+    await expect(page.locator('h1')).toHaveText('Humanitarian Action for Development and Protection');
+    const label = locale === 'fr' ? 'Éducation & alphabétisation numérique' : 'Education & Digital Literacy';
+    await expect(page.locator('#interventions').getByRole('heading', {name: label})).toBeVisible();
+    await page.goto(locale === 'fr' ? '/interventions' : '/en/interventions');
+    await expect(page.getByRole('heading', {name: label})).toBeVisible();
+    const digitalImage = page.getByAltText(locale === 'fr'
+      ? 'Des élèves utilisent des tablettes dans une salle de classe autour de l’apprentissage du numérique.'
+      : 'Students use tablets in a classroom focused on digital learning.');
+    await digitalImage.scrollIntoViewIfNeeded();
+    await expect(digitalImage).toBeVisible();
+    await expect.poll(() => digitalImage.evaluate((image) => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
+  });
+}
 
 test('Impact : les quatre indicateurs restent présents', async ({page}) => {
   await page.goto('/');

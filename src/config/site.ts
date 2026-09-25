@@ -2,10 +2,6 @@
 export const site = {
   name: 'Humanitarian Action for Development and Protection',
   acronym: 'HADP',
-  slogan: {
-    fr: 'Humanité - Inclusion',
-    en: 'Humanity — Inclusion',
-  },
   phone: '+227 96 50 81 46',
   whatsappUrl: 'https://wa.me/22796508146',
   email: {address: 'contact@hadp-niger.org', provisional: true},

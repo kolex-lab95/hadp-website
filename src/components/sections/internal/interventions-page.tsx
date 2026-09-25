@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import {Boxes, HandHeart, House, ShieldCheck, Stethoscope, WalletCards} from 'lucide-react';
+import {Boxes, HandHeart, House, Laptop, ShieldCheck, Stethoscope, WalletCards} from 'lucide-react';
 import {getTranslations} from 'next-intl/server';
 import {Container} from '@/components/ui/container';
 import {SectionHeading} from '@/components/ui/section-heading';
@@ -7,8 +7,16 @@ import {homeMedia} from '@/config/media';
 import {interventions} from '@/content/home';
 import {PageHero} from './page-hero';
 
-const icons = {protection: ShieldCheck, livelihoods: WalletCards, economicInclusion: HandHeart, health: Stethoscope, shelter: House, logistics: Boxes} as const;
-const images = [homeMedia.communityOne, homeMedia.workshop, homeMedia.communityTwo] as const;
+const icons = {protection: ShieldCheck, livelihoods: WalletCards, economicInclusion: HandHeart, health: Stethoscope, shelter: House, logistics: Boxes, educationDigital: Laptop} as const;
+const images = {
+  protection: homeMedia.communityOne,
+  livelihoods: homeMedia.workshop,
+  economicInclusion: homeMedia.communityTwo,
+  health: homeMedia.communityOne,
+  shelter: homeMedia.workshop,
+  logistics: homeMedia.communityTwo,
+  educationDigital: homeMedia.educationDigital,
+} as const;
 
 export async function InterventionsPage() {
   const t = await getTranslations();
@@ -24,7 +32,7 @@ export async function InterventionsPage() {
         <ol className="intervention-details mt-12">
           {interventions.map((item, index) => {
             const Icon = icons[item.id];
-            const image = images[index % images.length]!;
+            const image = images[item.id];
             return <li key={item.id} className="intervention-detail">
               <div className="intervention-detail-copy">
                 <span className="intervention-detail-number">{String(index + 1).padStart(2, '0')}</span>

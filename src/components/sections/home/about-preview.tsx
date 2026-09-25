@@ -4,9 +4,8 @@ import {Container} from '@/components/ui/container';
 import {SectionHeading} from '@/components/ui/section-heading';
 import {homeMedia} from '@/config/media';
 import {site} from '@/config/site';
-import type {Locale} from '@/i18n/routing';
 
-export async function AboutPreview({locale}: {locale: Locale}) {
+export async function AboutPreview() {
   const t = await getTranslations();
   const image = homeMedia.communityTwo;
 
@@ -20,8 +19,7 @@ export async function AboutPreview({locale}: {locale: Locale}) {
         <SectionHeading id="about-heading" eyebrow={t('aboutEyebrow')} title={t('aboutTitle')} description={t('aboutIntro')} />
         <p id="about-mission" className="mt-6 max-w-prose text-lg">{t('aboutBody')}</p>
         <div className="mt-8 border-l-4 border-brand-yellow pl-5">
-          <p className="font-heading text-xl font-bold text-brand-purple">{site.slogan[locale]}</p>
-          <p className="mt-1 text-sm text-muted">{site.location.city} — {site.location.country}</p>
+          <p className="text-sm text-muted">{site.location.city} — {site.location.country}</p>
         </div>
       </div>
     </Container>
