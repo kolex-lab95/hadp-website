@@ -163,7 +163,7 @@
   .intervention-row:hover { @apply border-brand-yellow; padding-left: 0.35rem; }
 
   .intervention-details { @apply grid gap-6; }
-  .intervention-detail { @apply grid overflow-hidden rounded-panel border border-line bg-surface md:grid-cols-2; box-shadow: 0 0.85rem 2rem rgb(27 27 31 / 0.035); transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
+  .intervention-detail { @apply grid overflow-hidden rounded-panel border border-line bg-surface md:min-h-[28rem] md:grid-cols-2; box-shadow: 0 0.85rem 2rem rgb(27 27 31 / 0.035); transition: border-color 180ms ease, box-shadow 180ms ease, transform 180ms ease; }
   .intervention-detail:nth-child(even) .intervention-detail-copy { @apply md:order-2; }
   .intervention-detail-copy { @apply grid content-center gap-x-4 p-7 sm:p-10; grid-template-columns: 2.5rem 3rem minmax(0, 1fr); }
   .intervention-detail-number { @apply pt-3 text-xs font-bold tracking-[0.14em] text-muted; }

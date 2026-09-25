@@ -18,7 +18,7 @@ for (const locale of ['fr', 'en']) {
       const externalHrefs = await page.locator('a[href^="https://"]').evaluateAll((links) =>
         links.map((link) => link.getAttribute('href')),
       );
-      expect(externalHrefs).toEqual(['https://wa.me/22796508146']);
+      expect(externalHrefs).toEqual(['https://wa.me/22780945865']);
       const layout = await page.evaluate(() => ({
         viewport: document.documentElement.clientWidth,
         width: document.documentElement.scrollWidth,
@@ -225,7 +225,7 @@ for (const width of [1024, 1366, 1440, 1920]) {
 test('Footer : coordonnées sobres et réseaux sans redirection', async ({page}) => {
   await page.goto('/');
   await expect(page.locator('a[href="mailto:contact@hadp-niger.org"]')).toHaveCount(2);
-  const whatsapp = page.locator('main a[href="https://wa.me/22796508146"]');
+  const whatsapp = page.locator('main a[href="https://wa.me/22780945865"]');
   await expect(whatsapp).toHaveCount(1);
   for (const link of await whatsapp.all()) {
     await expect(link).toHaveAttribute('target', '_blank');
@@ -253,7 +253,7 @@ for (const width of [360, 390, 768, 1440]) {
     const whatsapp = cta.getByRole('link', {name: /WhatsApp/});
 
     await expect(email).toHaveAttribute('href', 'mailto:contact@hadp-niger.org');
-    await expect(whatsapp).toHaveAttribute('href', 'https://wa.me/22796508146');
+    await expect(whatsapp).toHaveAttribute('href', 'https://wa.me/22780945865');
     await expect(whatsapp).toHaveAttribute('target', '_blank');
     await expect(cta.getByText('contact@hadp-niger.org', {exact: true})).toHaveCount(0);
     await expect(cta.getByText('+227 96 50 81 46', {exact: true})).toHaveCount(0);
@@ -339,7 +339,7 @@ test('Contact : validation accessible et liens directs', async ({page}) => {
   await expect(page.locator('#contact-name')).toHaveAttribute('aria-invalid', 'true');
   await expect(page.getByText('Ce champ est requis.').first()).toBeVisible();
   await expect(page.getByRole('link', {name: 'Nous écrire'})).toHaveAttribute('href', 'mailto:contact@hadp-niger.org');
-  await expect(page.getByRole('link', {name: /WhatsApp/})).toHaveAttribute('href', 'https://wa.me/22796508146');
+  await expect(page.getByRole('link', {name: /WhatsApp/})).toHaveAttribute('href', 'https://wa.me/22780945865');
 });
 
 for (const width of [360, 390, 430]) {
@@ -366,10 +366,12 @@ for (const locale of ['fr', 'en'] as const) {
     await page.setViewportSize({width: 1440, height: 960});
     await page.goto(locale === 'fr' ? '/' : '/en');
     await expect(page.locator('h1')).toHaveText('Humanitarian Action for Development and Protection');
-    const label = locale === 'fr' ? 'Éducation & alphabétisation numérique' : 'Education & Digital Literacy';
-    await expect(page.locator('#interventions').getByRole('heading', {name: label})).toBeVisible();
+    const label = locale === 'fr' ? 'Éducation - Inclusion numérique' : 'Education - Digital Inclusion';
+    const homeDomains = page.locator('#interventions .intervention-row');
+    await expect(homeDomains.first().getByRole('heading')).toHaveText(label);
     await page.goto(locale === 'fr' ? '/interventions' : '/en/interventions');
-    await expect(page.getByRole('heading', {name: label})).toBeVisible();
+    const detailDomains = page.locator('.intervention-detail');
+    await expect(detailDomains.first().getByRole('heading')).toHaveText(label);
     const digitalImage = page.getByAltText(locale === 'fr'
       ? 'Des élèves utilisent des tablettes dans une salle de classe autour de l’apprentissage du numérique.'
       : 'Students use tablets in a classroom focused on digital learning.');
@@ -378,6 +380,17 @@ for (const locale of ['fr', 'en'] as const) {
     await expect.poll(() => digitalImage.evaluate((image) => (image as HTMLImageElement).naturalWidth)).toBeGreaterThan(0);
   });
 }
+
+test('Domaines : cartes uniformes à partir de la tablette', async ({page}) => {
+  await page.setViewportSize({width: 1440, height: 960});
+  await page.goto('/interventions');
+  const heights = await page.locator('.intervention-detail').evaluateAll((cards) =>
+    cards.map((card) => Math.round(card.getBoundingClientRect().height)),
+  );
+  expect(heights).toHaveLength(7);
+  expect(new Set(heights).size).toBe(1);
+  expect(heights[0]).toBeGreaterThanOrEqual(448);
+});
 
 test('Impact : les quatre indicateurs restent présents', async ({page}) => {
   await page.goto('/');

@@ -3,7 +3,7 @@ export const site = {
   name: 'Humanitarian Action for Development and Protection',
   acronym: 'HADP',
   phone: '+227 96 50 81 46',
-  whatsappUrl: 'https://wa.me/22796508146',
+  whatsappUrl: 'https://wa.me/22780945865',
   email: {address: 'contact@hadp-niger.org', provisional: true},
   location: {city: 'Tahoua', country: 'Niger'},
   logo: {src: '/images/hadp-logo.png', width: 1546, height: 1017},

@@ -1,11 +1,11 @@
 export const interventions = [
+  {id: 'educationDigital', titleKey: 'interventionEducationDigital', descriptionKey: 'interventionEducationDigitalDescription'},
   {id: 'protection', titleKey: 'interventionProtection', descriptionKey: 'interventionProtectionDescription'},
   {id: 'livelihoods', titleKey: 'interventionLivelihoods', descriptionKey: 'interventionLivelihoodsDescription'},
   {id: 'economicInclusion', titleKey: 'interventionEconomicInclusion', descriptionKey: 'interventionEconomicInclusionDescription'},
   {id: 'health', titleKey: 'interventionHealth', descriptionKey: 'interventionHealthDescription'},
   {id: 'shelter', titleKey: 'interventionShelter', descriptionKey: 'interventionShelterDescription'},
   {id: 'logistics', titleKey: 'interventionLogistics', descriptionKey: 'interventionLogisticsDescription'},
-  {id: 'educationDigital', titleKey: 'interventionEducationDigital', descriptionKey: 'interventionEducationDigitalDescription'},
 ] as const;
 
 export type ImpactStat = Readonly<{
