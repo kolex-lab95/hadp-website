@@ -29,6 +29,8 @@ export const fieldActions = [
   {id: 'training', titleKey: 'actionTraining', descriptionKey: 'actionTrainingDescription'},
 ] as const;
 
+export const coordinationAction = {id: 'coordination', titleKey: 'actionCoordination', descriptionKey: 'actionCoordinationDescription'} as const;
+
 export const audiences = [
   {id: 'women', labelKey: 'audienceWomen'},
   {id: 'youth', labelKey: 'audienceYouth'},
@@ -41,3 +43,5 @@ export const audiences = [
 export const regions = ['Tahoua', 'Niamey', 'Agadez', 'Maradi', 'Zinder', 'Diffa', 'Tillabéri', 'Dosso'] as const;
 
 export const galleryImages = ['communityOne', 'workshop', 'communityTwo'] as const;
+export const homeGalleryPreviewImages = [...galleryImages, 'coordinationDiscussion', 'coordinationSession', 'coordinationGroup'] as const;
+export const coordinationGalleryImages = ['coordinationParticipant', 'coordinationDiscussion', 'coordinationSession', 'coordinationGroup', 'coordinationBanner', 'coordinationRoom', 'coordinationGroupPortrait'] as const;

@@ -2,6 +2,7 @@ import {hasLocale} from 'next-intl';
 import {setRequestLocale} from 'next-intl/server';
 import {notFound} from 'next/navigation';
 import {AboutPreview} from '@/components/sections/home/about-preview';
+import {CoordinationActivity} from '@/components/sections/home/coordination-activity';
 import {FieldActions} from '@/components/sections/home/field-actions';
 import {FinalCTA} from '@/components/sections/home/final-cta';
 import {GalleryPreview} from '@/components/sections/home/gallery-preview';
@@ -22,8 +23,9 @@ export default async function Home({params}: {params: Promise<{locale: string}>}
     <Hero />
     <AboutPreview />
     <InterventionSection />
-    <ImpactSection />
     <FieldActions />
+    <CoordinationActivity />
+    <ImpactSection />
     <TargetGroups />
     <Locations />
     <GalleryPreview />

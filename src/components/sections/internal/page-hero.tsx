@@ -6,10 +6,11 @@ type Props = Readonly<{
   title: string;
   description: string;
   image: {src: string; width: number; height: number; alt: string};
+  className?: string;
 }>;
 
-export function PageHero({eyebrow, title, description, image}: Props) {
-  return <section className="internal-hero">
+export function PageHero({eyebrow, title, description, image, className}: Props) {
+  return <section className={`internal-hero ${className ?? ''}`}>
     <Container className="internal-hero-grid">
       <div className="internal-hero-copy">
         <p className="eyebrow text-brand-yellow">{eyebrow}</p>

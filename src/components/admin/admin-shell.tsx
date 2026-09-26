@@ -1,0 +1,4 @@
+import Link from 'next/link';
+import {ImagePlus, LayoutDashboard, LogOut, NotebookPen} from 'lucide-react';
+import {signOut} from '@/app/admin/actions';
+export function AdminShell({children, email}: {children: React.ReactNode; email: string}) { return <div className="admin-shell"><aside className="admin-sidebar"><Link href="/admin/dashboard" className="admin-brand">HADP <span>Administration</span></Link><nav aria-label="Administration"><Link href="/admin/dashboard"><LayoutDashboard /> Tableau de bord</Link><Link href="/admin/activities"><NotebookPen /> Activités</Link><Link href="/admin/gallery"><ImagePlus /> Galerie</Link></nav><p className="admin-user">{email}</p><form action={signOut}><button className="admin-logout"><LogOut /> Déconnexion</button></form></aside><main className="admin-main">{children}</main></div>; }

@@ -10,7 +10,7 @@ export async function FieldActions() {
   const community = homeMedia.communityOne;
   const workshop = homeMedia.workshop;
 
-  return <section id="actions" aria-labelledby="actions-heading" className="section-space reveal">
+  return <section id="actions" aria-labelledby="actions-heading" className="home-field-actions section-space reveal">
     <Container>
       <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-16">
         <SectionHeading id="actions-heading" eyebrow={t('actionsEyebrow')} title={t('actionsTitle')} description={t('actionsIntro')} />

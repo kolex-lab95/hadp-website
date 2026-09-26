@@ -1,0 +1,3 @@
+'use client';
+import {useState} from 'react';
+export function DeleteForm({action, id, label = 'Supprimer'}: {action: (formData: FormData) => void | Promise<void>; id: string; label?: string}) { const [confirming, setConfirming] = useState(false); return <form action={action}>{confirming ? <><p className="admin-confirm">Confirmer la suppression ?</p><input type="hidden" name="id" value={id} /><button className="admin-danger" type="submit">Oui, supprimer</button><button className="admin-link-button" type="button" onClick={() => setConfirming(false)}>Annuler</button></> : <button className="admin-danger" type="button" onClick={() => setConfirming(true)}>{label}</button>}</form>; }

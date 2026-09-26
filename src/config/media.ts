@@ -2,7 +2,7 @@ export type ProjectImage = Readonly<{
   src: string;
   width: number;
   height: number;
-  altKey: 'imageCommunityAltOne' | 'imageCommunityAltTwo' | 'imageWorkshopAlt' | 'imageEducationDigitalAlt';
+  altKey: 'imageCommunityAltOne' | 'imageCommunityAltTwo' | 'imageWorkshopAlt' | 'imageEducationDigitalAlt' | 'imageCoordinationParticipantAlt' | 'imageCoordinationDiscussionAlt' | 'imageCoordinationSessionAlt' | 'imageCoordinationGroupAlt' | 'imageCoordinationBannerAlt' | 'imageCoordinationRoomAlt' | 'imageCoordinationGroupPortraitAlt';
   provisional: boolean;
 }>;
 
@@ -39,4 +39,11 @@ export const homeMedia = {
     altKey: 'imageEducationDigitalAlt',
     provisional: true,
   },
+  coordinationParticipant: {src: '/images/activities/humanitarian-coordination-workshop/hadp-workshop-participant.webp', width: 1440, height: 1080, altKey: 'imageCoordinationParticipantAlt', provisional: false},
+  coordinationDiscussion: {src: '/images/activities/humanitarian-coordination-workshop/coordination-discussion.webp', width: 1440, height: 1080, altKey: 'imageCoordinationDiscussionAlt', provisional: false},
+  coordinationSession: {src: '/images/activities/humanitarian-coordination-workshop/workshop-session.webp', width: 1440, height: 1080, altKey: 'imageCoordinationSessionAlt', provisional: false},
+  coordinationGroup: {src: '/images/activities/humanitarian-coordination-workshop/workshop-participants.webp', width: 1440, height: 1080, altKey: 'imageCoordinationGroupAlt', provisional: false},
+  coordinationBanner: {src: '/images/activities/humanitarian-coordination-workshop/workshop-banner.webp', width: 1680, height: 945, altKey: 'imageCoordinationBannerAlt', provisional: false},
+  coordinationRoom: {src: '/images/activities/humanitarian-coordination-workshop/workshop-room.webp', width: 1440, height: 1080, altKey: 'imageCoordinationRoomAlt', provisional: false},
+  coordinationGroupPortrait: {src: '/images/activities/humanitarian-coordination-workshop/workshop-group.webp', width: 1440, height: 1080, altKey: 'imageCoordinationGroupPortraitAlt', provisional: false},
 } satisfies Record<string, ProjectImage>;
