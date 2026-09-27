@@ -1,5 +1,13 @@
 import {redirect} from 'next/navigation';
 import {isSupabaseConfigured} from '@/lib/supabase/env';
-import {signIn} from '../actions';
-import {SubmitButton} from '@/components/admin/submit-button';
-export default async function LoginPage({searchParams}: {searchParams: Promise<{error?: string; reason?: string}>}) { const params = await searchParams; if (!isSupabaseConfigured) return <main className="admin-login"><section><p className="admin-kicker">HADP · Administration</p><h1>Configuration requise</h1><p>Ajoutez les variables Supabase indiquées dans <code>PHASE-4.md</code> pour activer l’accès sécurisé.</p></section></main>; if (params.reason === 'setup') redirect('/admin/login'); return <main className="admin-login"><form action={signIn}><p className="admin-kicker">HADP · Administration</p><h1>Connexion sécurisée</h1><p>Accès réservé aux administrateurs autorisés.</p>{params.error && <p className="admin-error" role="alert">{params.error}</p>}<label>E-mail<input name="email" type="email" autoComplete="email" required /></label><label>Mot de passe<input name="password" type="password" autoComplete="current-password" required /></label><SubmitButton>Se connecter</SubmitButton></form></main>; }
+import {LoginForm} from '@/components/admin/login-form';
+
+export default async function LoginPage({searchParams}: {searchParams: Promise<{error?: string; reason?: string}>}) {
+  const params = await searchParams;
+  if (params.reason === 'setup') redirect('/admin/login');
+  return <main className="admin-login">
+    <div className="admin-login-orb admin-login-orb--one" aria-hidden="true" />
+    <div className="admin-login-orb admin-login-orb--two" aria-hidden="true" />
+    {!isSupabaseConfigured ? <section className="admin-login-card admin-login-card--setup"><p className="admin-kicker">Configuration requise</p><h1>Connexion</h1><p>Ajoutez les variables Supabase indiquées dans <code>PHASE-4.md</code> pour activer l’accès sécurisé.</p></section> : <LoginForm error={params.error} />}
+  </main>;
+}

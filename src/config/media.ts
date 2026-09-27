@@ -12,23 +12,23 @@ export type ProjectImage = Readonly<{
  */
 export const homeMedia = {
   communityOne: {
-    src: '/images/field/sensibilisation-communautaire-01.png',
-    width: 939,
-    height: 538,
+    src: '/images/hadp/img_8.webp',
+    width: 1657,
+    height: 949,
     altKey: 'imageCommunityAltOne',
     provisional: true,
   },
   communityTwo: {
-    src: '/images/field/sensibilisation-communautaire-02.png',
-    width: 934,
-    height: 496,
+    src: '/images/hadp/img_10.webp',
+    width: 1721,
+    height: 914,
     altKey: 'imageCommunityAltTwo',
     provisional: true,
   },
   workshop: {
-    src: '/images/field/atelier-pratique-01.png',
-    width: 984,
-    height: 462,
+    src: '/images/hadp/img_9.webp',
+    width: 1831,
+    height: 859,
     altKey: 'imageWorkshopAlt',
     provisional: true,
   },
