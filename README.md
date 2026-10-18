@@ -1,73 +1,59 @@
 # HADP — Site institutionnel
 
-Projet Next.js du site officiel de l’ONG HADP. Les Phases 1 à 3 livrent la page d’accueil et les pages institutionnelles en français et en anglais. Le CMS, les dons, la newsletter et la vidéothèque ne sont pas développés.
+Site officiel bilingue de **Humanitarian Action for Development and Protection (HADP)**, organisation humanitaire basée au Niger.
 
-## Démarrage
+## Fonctionnalités
 
-Node.js 22 ou une version ultérieure et npm sont requis.
+- Site public en français et en anglais
+- Présentation de l’organisation, de ses domaines d’intervention et de ses actions
+- Galerie de médias et contenus administrables
+- Espace d’administration sécurisé avec Supabase
+- Interface responsive et accessible
+- Métadonnées et routage localisés
 
-```sh
+## Technologies
+
+Next.js 16, React 19, TypeScript, Tailwind CSS 4, next-intl et Supabase.
+
+## Installation
+
+Prérequis : Node.js 22 ou version ultérieure.
+
+```bash
 npm ci
+cp .env.example .env.local
 npm run dev
 ```
 
-Le site local est disponible sur `http://localhost:3000` en français et sur `http://localhost:3000/en` en anglais.
+Le site est disponible sur `http://localhost:3000`. La version anglaise est accessible sous `/en`.
 
-## Architecture
+## Configuration
 
-```text
-hadp-website/
-├── messages/                 # Dictionnaires FR/EN
-├── public/images/            # Logo et photographies de travail
-├── qa/                       # Captures de contrôle
-├── scripts/                  # Contrôle des dictionnaires
-├── src/
-│   ├── app/[locale]/         # Layout et routes localisées
-│   ├── components/
-│   │   ├── layout/           # Header, navigation mobile, footer
-│   │   ├── sections/home/    # Sections de la page d’accueil
-│   │   ├── sections/internal/# Pages internes réutilisables
-│   │   └── ui/               # Primitives du design system
-│   ├── config/               # Identité, navigation, médias et réseaux
-│   ├── content/              # Données institutionnelles structurées
-│   ├── i18n/                 # Routage et résolution des langues
-│   └── styles/globals.css    # Tokens et styles globaux
-├── tests/foundations.spec.ts
-├── PHASE-1.md
-├── PHASE-2.md
-└── PHASE-3.md
+Renseignez les variables suivantes dans `.env.local` :
+
+```env
+SITE_URL=
+NEXT_PUBLIC_SUPABASE_URL=
+NEXT_PUBLIC_SUPABASE_PUBLISHABLE_KEY=
 ```
 
-## Choix techniques
+Le schéma de données se trouve dans [`supabase/schema.sql`](supabase/schema.sql). La configuration de l’espace d’administration est détaillée dans [`ADMINISTRATION.md`](ADMINISTRATION.md).
 
-- Next.js App Router, React et composants serveur par défaut.
-- TypeScript strict, Tailwind CSS 4 et design system centralisé.
-- `next-intl` avec français par défaut, anglais sous `/en` et mémorisation du choix.
-- `next/image` pour toutes les photographies ; leurs références sont regroupées dans `src/config/media.ts`.
-- Navigation mobile cliente limitée au comportement nécessaire : focus piégé, fermeture par Échap, restitution du focus et blocage du défilement.
-- Animations CSS discrètes, désactivées avec `prefers-reduced-motion`.
-- Réseaux sociaux conservés dans un état sans navigation tant qu’aucune URL réelle n’est renseignée ; partenaires conditionnels.
-- Métadonnées bilingues et `noindex` temporaire jusqu’à la validation du domaine et de la publication.
+## Commandes
 
-## Données à maintenir
+| Commande | Utilisation |
+| --- | --- |
+| `npm run dev` | Lancer le serveur de développement |
+| `npm run build` | Générer la version de production |
+| `npm run start` | Démarrer la version de production |
+| `npm run check` | Vérifier les traductions, les types, le code et le build |
+| `npm run test:ui` | Exécuter les tests d’interface |
 
-- `src/config/site.ts` : identité, slogan, téléphone, e-mail et localisation.
-- `src/config/socials.ts` : cinq URLs sociales, initialisées à `null`. Le contact WhatsApp est centralisé dans `src/config/site.ts`.
-- `src/config/media.ts` : photographies et statut provisoire.
-- `src/content/home.ts` : domaines, actions, publics, régions et indicateurs d’impact.
-- `src/content/partners.ts` : partenaires, actuellement vide.
-- `messages/fr.json` et `messages/en.json` : tout le contenu visible.
+## Structure
 
-## Contrôles
-
-```sh
-npm run test:i18n
-npm run typecheck
-npm run lint
-npm run build
-npm run test:ui
-```
-
-La recette Playwright couvre le français et l’anglais aux largeurs 360, 390, 430, 768, 1024, 1366, 1440 et 1920 px. Elle contrôle notamment le débordement horizontal, les cibles tactiles, le clavier, le menu mobile, le zoom texte à 200 %, les erreurs console et les règles automatisables WCAG 2.1 AA.
-
-Voir `PHASE-2.md` et `PHASE-3.md` pour le périmètre livré et les résultats de recette.
+- `src/` : application, composants, contenu et configuration
+- `messages/` : traductions françaises et anglaises
+- `public/images/` : logo et photographies utilisées par le site
+- `supabase/` : schéma de données
+- `tests/` : tests d’interface et d’accessibilité
+- `scripts/` : contrôles du projet
